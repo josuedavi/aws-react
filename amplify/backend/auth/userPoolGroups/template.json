@@ -1,0 +1,55 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "authawsreactUserPoolId": {
+            "Type": "String",
+            "Default": "authawsreactUserPoolId"
+        },
+        
+        "authawsreactAppClientID": {
+            "Type": "String",
+            "Default": "authawsreactAppClientID"
+        },
+        "authawsreactAppClientIDWeb": {
+            "Type": "String",
+            "Default": "authawsreactAppClientIDWeb"
+        },
+        "AuthRoleArn": {
+            "Type": "String"
+        },
+        "UnauthRoleArn": {
+            "Type": "String"
+        },
+        "env": {
+            "Type": "String"
+        }
+    },
+    "Conditions": {
+        "ShouldNotCreateEnvResources": {
+            "Fn::Equals": [
+                {
+                    "Ref": "env"
+                },
+                "NONE"
+            ]
+        }
+    },
+    "Resources": {
+    
+        "usergroupsGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "usergroups",
+              "Precedence" : 1,
+              
+              "UserPoolId" : {
+                "Ref": "authawsreactUserPoolId"
+              }
+            }
+        },
+        
+    
+    
+    },
+    
+}
